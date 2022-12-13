@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/eungsu/spring-microservice-in-action-config.git
+          search-paths:
+          - product-service
+server:
+  port: 8071
+encrypt:
+  key: a4f397d68e7b9aa21692e49451bda3981a29e292399a82f7c3cdea44259a9b4c
