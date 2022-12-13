@@ -1,4 +1,17 @@
+logging:
+  level:
+    '[com.example.product.repository]': debug
+spring:
+  application:
+    name: product-service
+  config:
+    import: "optional:configserver:"
+  cloud:
+    config:
+      uri: http://configserver:8071
+      name: product-service
 management:
   endpoint:
     health:
       show-details: always
+      
