@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  database:
+    image: mariadb:10
+    container_name: mariadb
+    restart: always
+    environment:
+      - MARIADB_DATABASE='testdb'
+      - MARIADB_USER='hta'
+      - MARIADB_PASSWORD='zxcv1234'
+      - MARIADB_ROOT_PASSWORD='zxcv1234'
+    ports:
+      - '3306:3306'
+    networks:
+      - backend
+  configserver:
+    image: app/config-server:0.0.1-SNAPSHOT
+    ports:
+      - '8071:8071'
+    environment:
+      - "ENCRYPT_KEY=a4f397d68e7b9aa21692e49451bda3981a29e292399a82f7c3cdea44259a9b4c"
+    networks:
+      - backend
+  productservice:
+    image: app/product-service:0.0.1-SNAPSHOT
+    ports:
+      - "80:8080"
+    networks:
+      backend:
+    depends_on:
+      - database
+      - configserver
+    restart: always
+networks:
+  backend:
+    driver: bridge
