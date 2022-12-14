@@ -7,6 +7,7 @@ FROM openjdk:17-slim
 #	<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
 # </buildArgs>
 ARG JAR_FILE
+ENV TZ=Asia/Seoul
 
 # jar 파일을 이미지의 파일 시스템에 app.jar로 복사한다.
 COPY ${JAR_FILE} app.jar

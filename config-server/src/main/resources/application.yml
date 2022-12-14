@@ -10,5 +10,5 @@ spring:
           - product-service
 server:
   port: 8071
-encrypt:
-  key: a4f397d68e7b9aa21692e49451bda3981a29e292399a82f7c3cdea44259a9b4c
+#encrypt:
+#  key: a4f397d68e7b9aa21692e49451bda3981a29e292399a82f7c3cdea44259a9b4c

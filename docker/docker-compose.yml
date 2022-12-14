@@ -1,24 +1,25 @@
-version: '3.8'
+version: '3'
 services:
-  database:
-    image: mariadb:10
-    container_name: mariadb
+  oracle:
+    image: gvenzl/oracle-xe:11.2.0.2-slim
     restart: always
     environment:
-      - MARIADB_DATABASE='testdb'
-      - MARIADB_USER='hta'
-      - MARIADB_PASSWORD='zxcv1234'
-      - MARIADB_ROOT_PASSWORD='zxcv1234'
+      ORACLE_RANDOM_PASSWORD: true
+      APP_USER: hta
+      APP_USER_PASSWORD: zxcv1234
     ports:
-      - '3306:3306'
+      - 1521:1521
+      - 5500:5500
+    volumes:
+      - oracle-data:/u01/app/oracle/oradata
     networks:
       - backend
   configserver:
     image: app/config-server:0.0.1-SNAPSHOT
     ports:
       - '8071:8071'
-    environment:
-      - "ENCRYPT_KEY=a4f397d68e7b9aa21692e49451bda3981a29e292399a82f7c3cdea44259a9b4c"
+    # environment:
+    #   - "ENCRYPT_KEY=a4f397d68e7b9aa21692e49451bda3981a29e292399a82f7c3cdea44259a9b4c"
     networks:
       - backend
   productservice:
@@ -28,9 +29,11 @@ services:
     networks:
       backend:
     depends_on:
-      - database
+      - oracle
       - configserver
     restart: always
 networks:
   backend:
     driver: bridge
+volumes:
+  oracle-data:
