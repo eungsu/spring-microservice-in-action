@@ -9,9 +9,4 @@ spring:
   cloud:
     config:
       uri: http://configserver:8071
-      name: product-service
-management:
-  endpoint:
-    health:
-      show-details: always
-      
+      name: product-service      
